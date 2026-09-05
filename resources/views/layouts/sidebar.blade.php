@@ -22,6 +22,13 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <!-- Back to Site Button -->
+                <li>
+                    <a href="{{ route('homepage') }}" title="بازگشت به سایت">
+                        <i class="nav-hdr-btn ti-home"></i>
+                    </a>
+                </li>
+                <!-- #END# Back to Site Button -->
                 <!-- Full Screen Button -->
                 <li class="fullscreen">
                     <a href="javascript:;" class="fullscreen-btn">

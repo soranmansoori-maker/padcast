@@ -14,6 +14,7 @@ class Comment extends Model
         'album',
         'user',
         'parent',
+        'status',
     ];
 
     public function User()
