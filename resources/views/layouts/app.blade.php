@@ -27,6 +27,7 @@
     <!-- Custom Css -->
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/pages/extra_pages.css" rel="stylesheet" />
+    @yield('style')
 </head>
 <body>
             @yield('content')

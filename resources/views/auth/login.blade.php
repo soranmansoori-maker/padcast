@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('title', 'ورود به حساب کاربری')
+@section('style')
+    <style>
+        .wrap-input100.has-error { height: auto; min-height: 60px; padding-bottom: 22px; margin-bottom: 18px; }
+    </style>
+@stop
 @section('content')
     <div class="limiter rtl">
         <div class="container-login100" style="background-color: #5999d2 !important;">
@@ -9,29 +14,29 @@
 						{{ __('auth.Login') }}
 					</span>
                         @csrf
-                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <div class="wrap-input100 validate-input @error('email') has-error @enderror" data-validate = "Valid email is required: ex@abc.xyz">
                             <input id="email" type="email" class="input100 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                                    oninvalid="this.setCustomValidity('ایمیل کاربری خود را وارد کنید')"
                                    oninput="setCustomValidity('')">
+                            <span class="focus-input100"></span>
+                            <label for="email" class="label-input100">{{ __('auth.E-Mail') }}</label>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                            <span class="focus-input100"></span>
-                            <label for="email" class="label-input100">{{ __('auth.E-Mail') }}</label>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate="رمز عبور مورد نیاز است">
+                        <div class="wrap-input100 validate-input @error('password') has-error @enderror" data-validate="رمز عبور مورد نیاز است">
                             <input id="password" type="password" class="input100 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"
                                    oninvalid="this.setCustomValidity('رمز عبور خود را وارد کنید')"
                                    oninput="setCustomValidity('')">
+                            <span class="focus-input100"></span>
+                            <label for="password" class="label-input100">{{ __('auth.Password') }}</label>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                            <span class="focus-input100"></span>
-                            <label for="password" class="label-input100">{{ __('auth.Password') }}</label>
                         </div>
 
                         <div class="flex-sb-m w-full p-t-15 p-b-20">

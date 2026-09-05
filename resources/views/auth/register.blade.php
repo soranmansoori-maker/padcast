@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('title', 'ایجاد حساب کاربری')
+@section('style')
+    <style>
+        .wrap-input100.has-error { height: auto; min-height: 60px; padding-bottom: 22px; margin-bottom: 18px; }
+    </style>
+@stop
 @section('content')
     <div class="limiter rtl">
         <div class="container-login100" style="background-color: #fcaf17 !important;">
@@ -10,7 +15,7 @@
 						{{ __('auth.Register') }}
 					</span>
 
-                    <div class="wrap-input100 validate-input" data-validate="نام و نام خانوادگی مورد نیاز است">
+                    <div class="wrap-input100 validate-input @error('name') has-error @enderror" data-validate="نام و نام خانوادگی مورد نیاز است">
                         <input id="name" type="text" class="input100 form-control @error('name') is-invalid @enderror"
                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                                oninvalid="this.setCustomValidity('نام کامل خود را وارد کنید')"
@@ -26,7 +31,7 @@
                         @enderror
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="آدرس ایمیل معتبر وارد کنید">
+                    <div class="wrap-input100 validate-input @error('email') has-error @enderror" data-validate="آدرس ایمیل معتبر وارد کنید">
                         <input id="email" type="email"
                                class="input100 form-control @error('email') is-invalid @enderror" name="email"
                                value="{{ old('email') }}" required autocomplete="email"
@@ -42,7 +47,7 @@
                         @enderror
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="یک شماره تماس معتبر وارد کنید">
+                    <div class="wrap-input100 validate-input @error('mobile') has-error @enderror" data-validate="یک شماره تماس معتبر وارد کنید">
                         <input id="mobile" type="text"
                                class="input100 form-control @error('mobile') is-invalid @enderror" name="mobile"
                                value="{{ old('mobile') }}" autocomplete="mobile">
@@ -57,7 +62,7 @@
                     </div>
 
 
-                    <div class="wrap-input100 validate-input" data-validate="رمز عبور مورد نیاز است">
+                    <div class="wrap-input100 validate-input @error('password') has-error @enderror" data-validate="رمز عبور مورد نیاز است">
                         <input id="password" type="password"
                                class="input100 form-control @error('password') is-invalid @enderror" name="password"
                                required autocomplete="new-password"
