@@ -13,20 +13,22 @@
     <script src="/plugins/owlcarousel/owlcarousel/owl.carousel.js"></script>
 
     <style>
-        /* Improve readability for carousel badges, album tags and empty-item text */
-        .owl-carousel .item .badge,
-        .owl-carousel .item a .badge,
-        .owl-carousel .item span,
-        .owl-carousel .item a span,
-        .badge.badge-dark,
+        /* Improve readability for album tags and empty-item text */
         .episodes__item .tags,
-        .episodes__item .tags span,
-        .owl-carousel .item .item .badge {
+        .episodes__item .tags span {
             color: #0b0b0b !important;
         }
 
         /* Ensure empty carousel item text is visible on white bg */
         .owl-carousel .item { color: #0b0b0b !important; }
+
+        /* Readable caption for featured podcasts / popular albums carousels */
+        .vip-caption { padding: 8px 4px; text-align: center; }
+        .vip-caption__title { font-size: 14px; font-weight: 700; color: #0b0b0b; white-space: normal; line-height: 1.4; }
+        .vip-caption__sub { font-size: 12px; color: #555; margin-top: 2px; }
+
+        /* Center the round cover image within its carousel item (item has text-align:right from RTL styles, which pushes the block-level image to the right edge instead of centering it under the caption) */
+        .owl-carousel .item img { display: block; margin: 0 auto; }
     </style>
 @stop
 @section('main')
@@ -178,9 +180,10 @@
                                 <div class="item">
                                     <a href="/album/{{ $vip->album }}#Podcast-{{ $vip->id }}"><img src="{{ $vip->cover }}"
                                                                                                    alt="{{ $vip->name }}"/>
-                                        <br/>
-                                        <span
-                                            class="badge badge-dark">{{ $vip->name }} : {{ (strlen($vip->Album->title) > 20) ? mb_substr($vip->Album->title,0,20,'utf-8').'...' : $vip->Album->title }}</span>
+                                        <div class="vip-caption">
+                                            <div class="vip-caption__title">{{ (strlen($vip->name) > 30) ? mb_substr($vip->name,0,30,'utf-8').'...' : $vip->name }}</div>
+                                            <div class="vip-caption__sub">{{ (strlen($vip->Album->title) > 20) ? mb_substr($vip->Album->title,0,20,'utf-8').'...' : $vip->Album->title }}</div>
+                                        </div>
                                     </a>
                                 </div>
                             @endforeach
@@ -303,8 +306,10 @@
                             @foreach($vipAlbums as $vipAlbum)
                                 <div class="item">
                                     <a href="/album/{{ $vipAlbum->id }}">
-                                        <img src="{{ $vipAlbum->cover }}" alt="{{ $vipAlbum->name }}"/><br/>
-                                        <span class="badge badge-dark">{{ $vipAlbum->title }}</span>
+                                        <img src="{{ $vipAlbum->cover }}" alt="{{ $vipAlbum->name }}"/>
+                                        <div class="vip-caption">
+                                            <div class="vip-caption__title">{{ (strlen($vipAlbum->title) > 30) ? mb_substr($vipAlbum->title,0,30,'utf-8').'...' : $vipAlbum->title }}</div>
+                                        </div>
                                     </a>
                                 </div>
                             @endforeach
@@ -354,25 +359,31 @@
     <script src="/plugins/owlcarousel/vendors/highlight.js"></script>
     <script src="/plugins/owlcarousel/js/app.js"></script>
     <script>
-        $('.owl-carousel').owlCarousel({
-            rtl: true,
-            loop: true,
-            margin: 10,
-            nav: true,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 5
-                }
-            }
+        $(window).on('load', function () {
+            $('.owl-carousel').each(function () {
+                var count = $(this).children('.item').length;
+                $(this).owlCarousel({
+                    rtl: true,
+                    loop: count > 5,
+                    margin: 10,
+                    nav: true,
+                    autoplay: count > 1,
+                    autoplayTimeout: 3000,
+                    autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
+                    }
+                });
+                $(this).trigger('refresh.owl.carousel');
+            });
         })
     </script>
 @endsection
