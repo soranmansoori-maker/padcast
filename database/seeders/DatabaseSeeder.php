@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this->call([\Database\Seeders\TagSeeder::class]);
+        $this->call([\Database\Seeders\CategorySeeder::class, \Database\Seeders\TagSeeder::class]);
     }
 }
