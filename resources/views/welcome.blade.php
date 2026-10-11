@@ -29,6 +29,9 @@
 
         /* Center the round cover image within its carousel item (item has text-align:right from RTL styles, which pushes the block-level image to the right edge instead of centering it under the caption) */
         .owl-carousel .item img { display: block; margin: 0 auto; }
+
+        /* Keep the album name/date in "آخرین آلبوم های بروز شده" always visible instead of hover-only (style.css hides it at bottom:-50px by default, which never reveals on touch devices) */
+        .episodes__text { bottom: 20px; }
     </style>
 @stop
 @section('main')
